@@ -9,24 +9,18 @@ public class ArrayDemo {
 
 
     public static void main(String[] args) {
+        Array array = new Array(10);
 
-
-        int[] arr = new int[10];
-
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = i;
+        for (int i = 0; i < 10; i++) {
+            array.addLast(i);
         }
 
-        for (int i = 0; i < arr.length; i++) {
-            System.out.println("arr value "  + arr[i]);
-        }
+        System.out.println(array.toString());
 
+        System.out.println(array.indexAt(7));
     }
 
 
-    /**
-     *
-     */
 
 
 }
