@@ -9,15 +9,19 @@ public class ArrayDemo {
 
 
     public static void main(String[] args) {
-        Array array = new Array(10);
+        Array<String> array = new Array(5);
 
-        for (int i = 0; i < 10; i++) {
-            array.addLast(i);
+        for (int i = 0; i < 5; i++) {
+            array.addLast("haha" + i);
         }
-
+        for (int i = 0; i < 5; i++) {
+            array.addLast("hehe" + i);
+        }
         System.out.println(array.toString());
 
-        System.out.println(array.indexAt(7));
+      //  System.out.println(array.indexAt(7));
+
+        System.out.println();
     }
 
 

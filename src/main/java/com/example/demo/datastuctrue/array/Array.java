@@ -4,9 +4,9 @@ package com.example.demo.datastuctrue.array;
  * @author 牛朋朋
  * @date 2019/7/1
  */
-public class Array {
+public class Array<E> {
 
-    private int[] data;
+    private E[] data;
 
     /**
      * 已添加元素个数
@@ -19,7 +19,7 @@ public class Array {
      * @param capacity data init size
      */
     public Array(int capacity) {
-        this.data = new int[capacity];
+        this.data = (E[]) new Object[capacity];
         this.size = 0;
     }
 
@@ -45,13 +45,20 @@ public class Array {
     /**
      * @param e
      */
-    public void addLast(int e) {
-        //判断是否越界
-        if (size == data.length) {
-            throw new IllegalArgumentException("index out of range...");
-        }
-        data[size] = e;
-        size++;
+    public void addLast(E e) {
+//        //判断是否越界
+//        if (size == data.length) {
+//            throw new IllegalArgumentException("index out of range...");
+//        }
+//        data[size] = e;
+//        size++;
+
+        add(e, size);
+    }
+
+
+    public void add(E e) {
+        addLast(e);
     }
 
     /**
@@ -60,10 +67,12 @@ public class Array {
      * @param e
      * @param index
      */
-    public void add(int e, int index) {
+    public void add(E e, int index) {
         //判断是否越界
         if (size == data.length) {
-            throw new IllegalArgumentException("index out of range...");
+            //  throw new IllegalArgumentException("index out of range...");
+            //扩容
+            resize(2 * data.length);
         }
         //判断index是否合法
         if (index < 0 || index > size) {
@@ -80,21 +89,32 @@ public class Array {
     }
 
 
-    public int remove(int index) {
+    private void resize(int newCapacity) {
+        E[] newData = (E[]) new Object[newCapacity];
+        for (int i = 0; i < size; i++) {
+            newData[i] = data[i];
+        }
+        data = newData;
+    }
+
+    public E remove(int index) {
         //判断index是否合法
         if (index < 0 || index >= size) {
             throw new IllegalArgumentException("index out of range...");
         }
-        int ret = data[index];
+        E ret = data[index];
         for (int i = index + 1; i < size; i++) {
             data[i - 1] = data[i];
         }
         size--;
+        if(size == data.length / 2){
+            resize(size);
+        }
         return ret;
     }
 
 
-    public int get(int index) {
+    public E get(int index) {
         //判断index是否合法
         if (index < 0 || index >= size) {
             throw new IllegalArgumentException("index out of range...");
@@ -105,7 +125,7 @@ public class Array {
 
     public boolean contains(int e) {
         for (int i = 0; i < size; i++) {
-            if (data[i] == e) {
+            if (data[i].equals(e)) {
                 return true;
             }
         }
@@ -114,7 +134,7 @@ public class Array {
 
     public int indexAt(int e) {
         for (int i = 0; i < size; i++) {
-            if (data[i] == e) {
+            if (data[i].equals(e)) {
                 return i;
             }
         }
